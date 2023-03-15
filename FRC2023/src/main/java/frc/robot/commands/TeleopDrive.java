@@ -51,34 +51,34 @@ public class TeleopDrive extends CommandBase {
     // xSpeed = xSpeed * xSpeed * (xSpeed > 0 ? 1 : -1);
     tmpSpeed = xspeed * xspeed;
     if (xspeed < 0)
-       xspeed = tmpSpeed * -1.0;
+      xspeed = tmpSpeed * -1.0;
     else
-       xspeed = tmpSpeed;
-      
-   zrotation = zrotation * zrotation * (zrotation > 0 ? 1 : -1);
+      xspeed = tmpSpeed;
+
+    zrotation = zrotation * zrotation * (zrotation > 0 ? 1 : -1);
     // if (m_drivetrain.getFast() == false) {
-    //   xspeed = xspeed / 1.75;
-    //   zrotation = zrotation / 2;
+    // xspeed = xspeed / 1.75;
+    // zrotation = zrotation / 2;
     // }
     if ((zrotation < Drive.deadband) && (zrotation > (Drive.deadband * -1)))
       zrotation = 0;
     if ((xspeed < Drive.deadband) && (xspeed > (Drive.deadband * -1)))
       xspeed = 0;
-  
-      if (xspeed > .1)
-        xspeed = (xspeed > oldspeed + Constants.ramprate ? oldspeed + Constants.ramprate : xspeed);
-      if (xspeed < -.1)
-        xspeed = (xspeed < oldspeed - Constants.ramprate ? oldspeed - Constants.ramprate : xspeed);
-  
-      if (zrotation > .1)
-        zrotation = (zrotation > oldspeedz + Constants.rampratez ? oldspeedz + Constants.rampratez : zrotation);
-      if (zrotation < -.1)
-        zrotation = (zrotation < oldspeedz - Constants.rampratez ? oldspeedz - Constants.rampratez : zrotation);
 
-        if(zrotation > 0.6)
-          zrotation = 0.6;
-        if(zrotation < -0.6)
-          zrotation = -0.6;
+    if (xspeed > .1)
+      xspeed = (xspeed > oldspeed + Constants.ramprate ? oldspeed + Constants.ramprate : xspeed);
+    if (xspeed < -.1)
+      xspeed = (xspeed < oldspeed - Constants.ramprate ? oldspeed - Constants.ramprate : xspeed);
+
+    if (zrotation > .1)
+      zrotation = (zrotation > oldspeedz + Constants.rampratez ? oldspeedz + Constants.rampratez : zrotation);
+    if (zrotation < -.1)
+      zrotation = (zrotation < oldspeedz - Constants.rampratez ? oldspeedz - Constants.rampratez : zrotation);
+
+    if (zrotation > 0.6)
+      zrotation = 0.6;
+    if (zrotation < -0.6)
+      zrotation = -0.6;
     m_drivetrain.arcadeDrive(xspeed, zrotation * -1);
   }
 

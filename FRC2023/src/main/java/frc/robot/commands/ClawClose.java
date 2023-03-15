@@ -21,7 +21,7 @@ public class ClawClose extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //SmartDashboard.putBoolean("commandCalled", true);
+    // SmartDashboard.putBoolean("commandCalled", true);
     m_arms.closeClaw();
   }
 }

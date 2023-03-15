@@ -16,7 +16,7 @@ public class GrabPiece extends CommandBase {
   private GrabPosition grabPosition;
   private double lengthSpeed;
   private double rotatePosition;
-  private double lengthPosition;  
+  private double lengthPosition;
 
   /** Creates a new GrabPiece. */
   public GrabPiece(Arms m_arms) {
@@ -29,22 +29,22 @@ public class GrabPiece extends CommandBase {
   @Override
   public void initialize() {
 
-    switch(grabPosition){
+    switch (grabPosition) {
       case Cube:
         rotatePosition = GrabPositions.cubeHeight;
         lengthPosition = GrabPositions.cubeLength;
         break;
       case ConePointIn:
-      rotatePosition = GrabPositions.coneInHeight;
-      lengthPosition = GrabPositions.coneInLength;
+        rotatePosition = GrabPositions.coneInHeight;
+        lengthPosition = GrabPositions.coneInLength;
         break;
       case ConePointUp:
-      rotatePosition = GrabPositions.coneUpHeight;
-      lengthPosition = GrabPositions.coneUpLength;
+        rotatePosition = GrabPositions.coneUpHeight;
+        lengthPosition = GrabPositions.coneUpLength;
         break;
       case ConePointOut:
-      rotatePosition = GrabPositions.coneOutHeight;
-      lengthPosition = GrabPositions.coneOutLength;
+        rotatePosition = GrabPositions.coneOutHeight;
+        lengthPosition = GrabPositions.coneOutLength;
         break;
       default:
         break;
@@ -71,7 +71,7 @@ public class GrabPiece extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((arms.armLengthMotorCurrentPosition() + ArmLength.deadband) > lengthPosition && 
-            (arms.armLengthMotorCurrentPosition() - ArmLength.deadband) < lengthPosition);
+    return ((arms.armLengthMotorCurrentPosition() + ArmLength.deadband) > lengthPosition &&
+        (arms.armLengthMotorCurrentPosition() - ArmLength.deadband) < lengthPosition);
   }
 }

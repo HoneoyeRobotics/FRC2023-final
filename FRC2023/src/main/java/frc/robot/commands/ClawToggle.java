@@ -12,6 +12,7 @@ import frc.robot.subsystems.Arms;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ClawToggle extends InstantCommand {
   private Arms arms;
+
   public ClawToggle(Arms arms) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arms = arms;
@@ -19,13 +20,12 @@ public class ClawToggle extends InstantCommand {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {    
-    if(arms.isClawOpened()){
+  public void initialize() {
+    if (arms.isClawOpened()) {
       arms.closeClaw();
-    }
-    else{
+    } else {
       arms.openClaw();
     }
-  
+
   }
 }

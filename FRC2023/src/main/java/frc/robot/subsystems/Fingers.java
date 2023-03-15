@@ -13,13 +13,14 @@ import frc.robot.Constants;
 public class Fingers extends SubsystemBase {
   private VictorSPX leftFingerMotor;
   private VictorSPX rightFingerMotor;
+
   /** Creates a new Fingers. */
   public Fingers() {
     leftFingerMotor = new VictorSPX(Constants.CanIDs.leftFingerMotor);
     rightFingerMotor = new VictorSPX(Constants.CanIDs.rightFingerMotor);
     leftFingerMotor.setInverted(true);
   }
-  
+
   public void moveFingers(double percentOutput) {
     leftFingerMotor.set(ControlMode.PercentOutput, percentOutput);
     rightFingerMotor.set(ControlMode.PercentOutput, percentOutput);

@@ -12,6 +12,7 @@ import frc.robot.subsystems.DriveTrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class DriveToggleIdleMode extends InstantCommand {
   private DriveTrain drivetrain;
+
   public DriveToggleIdleMode(DriveTrain drivetrain) {
     this.drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -20,7 +21,7 @@ public class DriveToggleIdleMode extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(drivetrain.getBrakeMode())
+    if (drivetrain.getBrakeMode())
       drivetrain.setCoastMode();
     else
       drivetrain.setBreakMode();

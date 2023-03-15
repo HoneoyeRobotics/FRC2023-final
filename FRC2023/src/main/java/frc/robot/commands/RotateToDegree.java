@@ -17,6 +17,7 @@ public class RotateToDegree extends CommandBase {
   private boolean clockwise;
 
   private int i;
+
   /** Creates a new RotateToDegree. */
   public RotateToDegree(DriveTrain driveTrain, double targetHeading) {
     m_DriveTrain = driveTrain;
@@ -35,23 +36,24 @@ public class RotateToDegree extends CommandBase {
 
     sign = clockwise ? -1 : 1;
   }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() { 
+  public void execute() {
     yaw = m_DriveTrain.getYaw();
     double heading = Math.abs(targetHeading - yaw);
-    //rotationSpeed = (Math.abs(targetHeading - yaw) > 25) ? RobotPrefs.getRotateRobotSpeed() : (RobotPrefs.getRotateRobotSpeed() / 1.3);
+    // rotationSpeed = (Math.abs(targetHeading - yaw) > 25) ?
+    // RobotPrefs.getRotateRobotSpeed() : (RobotPrefs.getRotateRobotSpeed() / 1.3);
 
-    if(heading < 30){
-      if(heading < 12.5)
-        //ultra fine tune speed
+    if (heading < 30) {
+      if (heading < 12.5)
+        // ultra fine tune speed
         rotationSpeed = (RobotPrefs.getRotateRobotSpeed() / 1.5);
       else
-        //medium fine tune speed
+        // medium fine tune speed
         rotationSpeed = (RobotPrefs.getRotateRobotSpeed() / 1.35);
-      }
-    else{
-      //full speed
+    } else {
+      // full speed
       rotationSpeed = RobotPrefs.getRotateRobotSpeed();
     }
 
@@ -71,9 +73,9 @@ public class RotateToDegree extends CommandBase {
   public boolean isFinished() {
     yaw = m_DriveTrain.getYaw();
 
-    if (i >= 10){
+    if (i >= 10) {
       i = 0;
     }
-      return (clockwise ? (yaw <= targetHeading + .25) : (yaw >= targetHeading - .25));
+    return (clockwise ? (yaw <= targetHeading + .25) : (yaw >= targetHeading - .25));
   }
 }

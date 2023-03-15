@@ -10,6 +10,7 @@ import frc.robot.subsystems.DriveTrain;
 public class DriveUntilCollision extends CommandBase {
   private DriveTrain m_DriveTrain;
   private int i;
+
   /** Creates a new DriveUntilCollision. */
   public DriveUntilCollision(DriveTrain driveTrain) {
     m_DriveTrain = driveTrain;
@@ -38,9 +39,9 @@ public class DriveUntilCollision extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(i > 25)
+    if (i > 25)
       return m_DriveTrain.collisionDetected(false);
     else
-    return false;
+      return false;
   }
 }

@@ -18,6 +18,7 @@ public class MoveToScorePos extends SequentialCommandGroup {
   private DriveTrain m_driveTrain;
   private Vision m_vision;
   private Arms m_arms;
+
   /** Creates a new MoveToScorePos. */
   public MoveToScorePos(DriveTrain driveTrain, Vision vision, Arms arms) {
     m_driveTrain = driveTrain;
@@ -26,14 +27,13 @@ public class MoveToScorePos extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new BombScoreOff(driveTrain),
-      new DriveUntilCorrectDistance(m_driveTrain, m_vision).raceWith(new CheckBombSocre(m_driveTrain)),
-      new WaitCommand(.2).raceWith(new CheckBombSocre(m_driveTrain)),
-      new RotateToDegree(m_driveTrain, RobotPrefs.isBlue() ? 90 : -90).raceWith(new CheckBombSocre(m_driveTrain)),
-      new DriveUntilPerpendicular(m_driveTrain, m_vision, m_arms).raceWith(new CheckBombSocre(m_driveTrain)),
-      new RotateToDegree(m_driveTrain, 0).raceWith(new CheckBombSocre(m_driveTrain)),
-      new DriveUntilCollision(m_driveTrain).raceWith(new CheckBombSocre(m_driveTrain)),
-      new BombScoreOff(m_driveTrain)
-    );
+        new BombScoreOff(driveTrain),
+        new DriveUntilCorrectDistance(m_driveTrain, m_vision).raceWith(new CheckBombSocre(m_driveTrain)),
+        new WaitCommand(.2).raceWith(new CheckBombSocre(m_driveTrain)),
+        new RotateToDegree(m_driveTrain, RobotPrefs.isBlue() ? 90 : -90).raceWith(new CheckBombSocre(m_driveTrain)),
+        new DriveUntilPerpendicular(m_driveTrain, m_vision, m_arms).raceWith(new CheckBombSocre(m_driveTrain)),
+        new RotateToDegree(m_driveTrain, 0).raceWith(new CheckBombSocre(m_driveTrain)),
+        new DriveUntilCollision(m_driveTrain).raceWith(new CheckBombSocre(m_driveTrain)),
+        new BombScoreOff(m_driveTrain));
   }
 }

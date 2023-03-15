@@ -12,6 +12,7 @@ import frc.robot.subsystems.Arms;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ResetArmRotateEncoder extends InstantCommand {
   private Arms m_arms;
+
   public ResetArmRotateEncoder(Arms arms) {
     m_arms = arms;
     // Use addRequirements() here to declare subsystem dependencies.

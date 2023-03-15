@@ -12,7 +12,7 @@ import frc.robot.subsystems.Arms;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ClawOpen extends InstantCommand {
   private Arms m_arms;
-  
+
   public ClawOpen(Arms arms) {
     m_arms = arms;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -21,7 +21,7 @@ public class ClawOpen extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(m_arms.alreadyClosed == false)
+    if (m_arms.alreadyClosed == false)
       m_arms.openClaw();
   }
 }

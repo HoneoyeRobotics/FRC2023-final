@@ -12,6 +12,7 @@ import frc.robot.subsystems.Vision;
 public class DriveUntilCorrectDistance extends CommandBase {
   private DriveTrain m_DriveTrain;
   private Vision m_Vision;
+
   /** Creates a new DriveUntilCorrectDistance. */
   public DriveUntilCorrectDistance(DriveTrain driveTrain, Vision vision) {
     m_DriveTrain = driveTrain;
@@ -36,7 +37,7 @@ public class DriveUntilCorrectDistance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_DriveTrain.arcadeDrive(0, 0);    
+    m_DriveTrain.arcadeDrive(0, 0);
     m_Vision.setFrontLimelightState(LimeLightState.Drive);
   }
 

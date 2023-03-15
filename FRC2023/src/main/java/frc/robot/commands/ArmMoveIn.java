@@ -12,10 +12,11 @@ public class ArmMoveIn extends CommandBase {
   /** Creates a new MoveArmIn. */
   private Arms arms;
   private int i;
+
   public ArmMoveIn(Arms arms) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arms = arms;
-    //addRequirements(arms);
+    // addRequirements(arms);
   }
 
   // Called when the command is initially scheduled.
@@ -41,7 +42,7 @@ public class ArmMoveIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(arms.isArmIn()) {
+    if (arms.isArmIn()) {
       arms.armLengthBrakeOn();
       i++;
     }

@@ -20,20 +20,20 @@ import frc.robot.Constants.CanIDs;;
 
 public class DriveTrain extends SubsystemBase {
 
-    private boolean bombScore = false;
+  private boolean bombScore = false;
 
-    private CANSparkMax leftFrontMotor;
-    private CANSparkMax leftRearMotor;
-    private CANSparkMax rightFrontMotor;
-    private CANSparkMax rightRearMotor;
-  
-    private MotorControllerGroup leftMotors;
-    private MotorControllerGroup rightMotors;
-    private DifferentialDrive drive;
-    
-    private boolean driveFast = false;
-  
-    private AHRS navx;
+  private CANSparkMax leftFrontMotor;
+  private CANSparkMax leftRearMotor;
+  private CANSparkMax rightFrontMotor;
+  private CANSparkMax rightRearMotor;
+
+  private MotorControllerGroup leftMotors;
+  private MotorControllerGroup rightMotors;
+  private DifferentialDrive drive;
+
+  private boolean driveFast = false;
+
+  private AHRS navx;
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
@@ -53,17 +53,16 @@ public class DriveTrain extends SubsystemBase {
     navx.calibrate();
   }
 
-  public void toggleFast(){
-    if(driveFast)
+  public void toggleFast() {
+    if (driveFast)
       driveFast = false;
     else
       driveFast = true;
   }
 
-  public boolean getFast(){
+  public boolean getFast() {
     return driveFast;
   }
-
 
   public void arcadeDrive(double xSpeed, double zRotation) {
     drive.arcadeDrive(xSpeed, zRotation);
@@ -76,42 +75,44 @@ public class DriveTrain extends SubsystemBase {
     rightRearMotor.getEncoder().setPosition(0);
   }
 
-  public void setBreakMode(){
+  public void setBreakMode() {
     leftFrontMotor.setIdleMode(IdleMode.kBrake);
     leftRearMotor.setIdleMode(IdleMode.kBrake);
     rightFrontMotor.setIdleMode(IdleMode.kBrake);
     rightRearMotor.setIdleMode(IdleMode.kBrake);
   }
 
-  public void setCoastMode(){
+  public void setCoastMode() {
     leftFrontMotor.setIdleMode(IdleMode.kCoast);
     leftRearMotor.setIdleMode(IdleMode.kCoast);
     rightFrontMotor.setIdleMode(IdleMode.kCoast);
     rightRearMotor.setIdleMode(IdleMode.kCoast);
   }
 
-  public boolean getBrakeMode(){
+  public boolean getBrakeMode() {
     return leftFrontMotor.getIdleMode() == IdleMode.kBrake;
   }
 
-
-  public double getRoll(){
+  public double getRoll() {
     return navx.getRoll();
   }
-  public double getAngle(){
+
+  public double getAngle() {
     return navx.getAngle() * -1;
   }
-  public double getPitch(){
+
+  public double getPitch() {
     return navx.getPitch();
   }
-  public double getYaw(){
+
+  public double getYaw() {
     return navx.getYaw() * -1;
   }
-  public void resetNavX(){
+
+  public void resetNavX() {
     navx.reset();
   }
 
-  
   double last_world_linear_accel_x;
   double last_world_linear_accel_y;
 
@@ -119,25 +120,25 @@ public class DriveTrain extends SubsystemBase {
 
   public boolean collisionDetected(boolean lemsWay) {
     boolean collisionDetected = false;
-    if(lemsWay == false) {
-      
-    double curr_world_linear_accel_x = navx.getWorldLinearAccelX();
-    double currentJerkX = curr_world_linear_accel_x - last_world_linear_accel_x;
-    last_world_linear_accel_x = curr_world_linear_accel_x;
-    double curr_world_linear_accel_y = navx.getWorldLinearAccelY();
-    double currentJerkY = curr_world_linear_accel_y - last_world_linear_accel_y;
-    last_world_linear_accel_y = curr_world_linear_accel_y;
+    if (lemsWay == false) {
 
-    if ((Math.abs(currentJerkX) > kCollisionThreshold_DeltaG)
-        || (Math.abs(currentJerkY) > kCollisionThreshold_DeltaG)) {
-      collisionDetected = true;
+      double curr_world_linear_accel_x = navx.getWorldLinearAccelX();
+      double currentJerkX = curr_world_linear_accel_x - last_world_linear_accel_x;
+      last_world_linear_accel_x = curr_world_linear_accel_x;
+      double curr_world_linear_accel_y = navx.getWorldLinearAccelY();
+      double currentJerkY = curr_world_linear_accel_y - last_world_linear_accel_y;
+      last_world_linear_accel_y = curr_world_linear_accel_y;
+
+      if ((Math.abs(currentJerkX) > kCollisionThreshold_DeltaG)
+          || (Math.abs(currentJerkY) > kCollisionThreshold_DeltaG)) {
+        collisionDetected = true;
+      }
+      SmartDashboard.putBoolean("CollisionDetected", collisionDetected);
+
+    } else {
+      if (navx.getVelocityX() <= .1 || navx.getVelocityY() <= .1)
+        collisionDetected = true;
     }
-    SmartDashboard.putBoolean("CollisionDetected", collisionDetected);
-
-  }else {
-    if(navx.getVelocityX() <= .1 || navx.getVelocityY() <= .1)
-      collisionDetected = true;
-  }
     return collisionDetected;
   }
 
@@ -148,6 +149,7 @@ public class DriveTrain extends SubsystemBase {
   public void setBombScore() {
     bombScore = true;
   }
+
   public void clearBombScore() {
     bombScore = false;
   }
@@ -156,24 +158,23 @@ public class DriveTrain extends SubsystemBase {
     return bombScore;
   }
 
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
 
-    @Override
-    public void periodic() {
-      // This method will be called once per scheduler run
-
-      if(RobotPrefs.getEncoderAndNavXDisplayed()) {
-        SmartDashboard.putNumber("LF Encoder", leftFrontMotor.getEncoder().getPosition());
-        SmartDashboard.putNumber("LR Encoder", leftRearMotor.getEncoder().getPosition());
-        SmartDashboard.putNumber("RF Encoder", rightFrontMotor.getEncoder().getPosition());
-        SmartDashboard.putNumber("RR Encoder", rightRearMotor.getEncoder().getPosition());
-        SmartDashboard.putNumber("Rotation", getAngle());
-        SmartDashboard.putNumber("Roll (RL Tip)", getRoll());
-        SmartDashboard.putNumber("Pitch (FB Tip)", getPitch());
-        SmartDashboard.putNumber("Yaw", getYaw());
-      }
-      SmartDashboard.putBoolean("BrakeMode", getBrakeMode());
-      SmartDashboard.putBoolean("bombScore", getBombScore());
-
+    if (RobotPrefs.getEncoderAndNavXDisplayed()) {
+      SmartDashboard.putNumber("LF Encoder", leftFrontMotor.getEncoder().getPosition());
+      SmartDashboard.putNumber("LR Encoder", leftRearMotor.getEncoder().getPosition());
+      SmartDashboard.putNumber("RF Encoder", rightFrontMotor.getEncoder().getPosition());
+      SmartDashboard.putNumber("RR Encoder", rightRearMotor.getEncoder().getPosition());
+      SmartDashboard.putNumber("Rotation", getAngle());
+      SmartDashboard.putNumber("Roll (RL Tip)", getRoll());
+      SmartDashboard.putNumber("Pitch (FB Tip)", getPitch());
+      SmartDashboard.putNumber("Yaw", getYaw());
     }
-  
+    SmartDashboard.putBoolean("BrakeMode", getBrakeMode());
+    SmartDashboard.putBoolean("bombScore", getBombScore());
+
+  }
+
 }

@@ -12,6 +12,7 @@ import frc.robot.subsystems.DriveTrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class BombScoreOn extends InstantCommand {
   private DriveTrain m_drivetrain;
+
   public BombScoreOn(DriveTrain drivetrain) {
     m_drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.

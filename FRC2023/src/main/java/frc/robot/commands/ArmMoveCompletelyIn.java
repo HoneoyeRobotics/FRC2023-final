@@ -10,6 +10,7 @@ import frc.robot.subsystems.Arms;
 
 public class ArmMoveCompletelyIn extends CommandBase {
   private Arms m_arms;
+
   /** Creates a new MoveArmCompletelyIn. */
   public ArmMoveCompletelyIn(Arms arms) {
     m_arms = arms;
@@ -39,7 +40,7 @@ public class ArmMoveCompletelyIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_arms.isArmIn())
+    if (m_arms.isArmIn())
       m_arms.resetArmLengthEncoder();
     return m_arms.isArmIn() || m_arms.armLengthOverload();
   }

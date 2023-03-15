@@ -15,6 +15,7 @@ public class ScorePiece1 extends CommandBase {
   private int m_scoringSlot;
   private boolean isCone;
   private ScoringHeight m_scoringHeight;
+
   /** Creates a new ScorePiece. */
   public ScorePiece1(Arms arms) {
     m_arms = arms;
@@ -22,6 +23,7 @@ public class ScorePiece1 extends CommandBase {
     addRequirements(m_arms);
     // Use addRequirements() here to declare subsystem dependencies.
   }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -30,23 +32,19 @@ public class ScorePiece1 extends CommandBase {
 
     isCone = m_arms.isCone(m_scoringSlot);
 
-    if(m_scoringHeight == ScoringHeight.Low) {
+    if (m_scoringHeight == ScoringHeight.Low) {
       rotatePosition = ScorePositions.lowHeight;
-    }
-    else {
-      if(m_scoringHeight == ScoringHeight.Med) {
-        if(isCone) {
+    } else {
+      if (m_scoringHeight == ScoringHeight.Med) {
+        if (isCone) {
           rotatePosition = ScorePositions.coneMedHeight;
-        }
-        else {
+        } else {
           rotatePosition = ScorePositions.cubeMedHeight;
         }
-        }
-      else {
-        if(isCone) {
+      } else {
+        if (isCone) {
           rotatePosition = ScorePositions.coneHighHeight;
-        }
-        else {
+        } else {
           rotatePosition = ScorePositions.cubeHighHeight;
         }
       }
@@ -57,7 +55,8 @@ public class ScorePiece1 extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  }
 
   // Called once the command ends or is interrupted.
   @Override

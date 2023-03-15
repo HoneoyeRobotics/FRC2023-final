@@ -5,56 +5,57 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotPrefs;
+import frc.robot.enums.LimeLightState;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Vision;
 
-public class BalanceOnPlatform extends CommandBase {
-  private boolean endWhenBalanced = false;
+public class RotateToPeg extends CommandBase {
+  private Vision vision;
   private DriveTrain driveTrain;
-  private PIDController pidController;
 
-  /** Creates a new BalanceOnPlatform. */
-  public BalanceOnPlatform(DriveTrain driveTrain, boolean endWhenBalanced) {
+  public RotateToPeg(Vision vision, DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
-    this.endWhenBalanced = endWhenBalanced;
+    this.vision = vision;
     addRequirements(driveTrain);
 
+    pidController = new PIDController(0.2, 0, 0);
+    pidController.setTolerance(5, 10);
+
   }
+
+  private double offset;
+  private PIDController pidController;
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pidController = new PIDController(RobotPrefs.getBalanceP(), 0, 0);
-    pidController.setTolerance(5, 10);
-    pidController.setIntegratorRange(-0.5, 0.5);
-    driveTrain.setBreakMode();
+    // set pipeline to get the forward reflective tags
+    vision.setFrontLimelightState(LimeLightState.Reflective);
+
+    // get current offset
+    offset = RobotPrefs.getReflectiveTagOffset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double balanceSpeed = pidController.calculate(driveTrain.getPitch() * -1, 0);
-    if (driveTrain.getPitch() < 1 && driveTrain.getPitch() > -1)
-      balanceSpeed = 0;
-    if (balanceSpeed > 0.44)
-      balanceSpeed = 0.44;
-    if (balanceSpeed < -0.44)
-      balanceSpeed = -0.44;
-    SmartDashboard.putNumber("PID Balance Speed", balanceSpeed);
-    driveTrain.arcadeDrive(balanceSpeed, 0);
+    // move to position
+    driveTrain.arcadeDrive(0, pidController.calculate(vision.getFrontTx(), offset));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    driveTrain.arcadeDrive(0, 0);
+    vision.setFrontLimelightState(LimeLightState.AprilTag);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return endWhenBalanced && pidController.atSetpoint();
+    return pidController.atSetpoint();
   }
 }

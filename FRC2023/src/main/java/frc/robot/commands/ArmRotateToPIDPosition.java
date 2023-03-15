@@ -10,11 +10,12 @@ import frc.robot.subsystems.Arms;
 public class ArmRotateToPIDPosition extends CommandBase {
   private Arms m_arms;
   private double m_position;
+
   /** Creates a new RotateArmToPositionPID. */
   public ArmRotateToPIDPosition(Arms arms, double position) {
     m_arms = arms;
     m_position = position;
-    //addRequirements(m_arms);
+    // addRequirements(m_arms);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -38,6 +39,6 @@ public class ArmRotateToPIDPosition extends CommandBase {
   @Override
   public boolean isFinished() {
     return m_arms.isArmRotateAtPosition();
-    
+
   }
 }

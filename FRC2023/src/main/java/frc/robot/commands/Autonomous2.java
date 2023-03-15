@@ -14,6 +14,7 @@ import frc.robot.subsystems.DriveTrain;
 public class Autonomous2 extends SequentialCommandGroup {
   private Arms arms;
   private DriveTrain drivetrain;
+
   /** Creates a new Autonomous2. */
   public Autonomous2(Arms arms, DriveTrain drivetrain) {
     this.arms = arms;
@@ -22,16 +23,15 @@ public class Autonomous2 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // new ArmMoveIn(arms).withTimeout(.2),
-      // new ClawClose(arms),
-      // new ScorePiece1(arms),
-      // new ScorePiece2(arms),
-      // new ClawOpen(arms),
-      // new DriveForTime(drivetrain, -.5).withTimeout(.5),
-      // new ArmHome(arms),
-      new DriveForTime(drivetrain, -.5).withTimeout(5),
-      new DriveUntilTipping(drivetrain, true),
-      new BalanceOnPlatform(drivetrain, false)
-    );
+        // new ArmMoveIn(arms).withTimeout(.2),
+        // new ClawClose(arms),
+        // new ScorePiece1(arms),
+        // new ScorePiece2(arms),
+        // new ClawOpen(arms),
+        // new DriveForTime(drivetrain, -.5).withTimeout(.5),
+        // new ArmHome(arms),
+        new DriveForTime(drivetrain, -.5).withTimeout(5),
+        new DriveUntilTipping(drivetrain, true),
+        new BalanceOnPlatform(drivetrain, false));
   }
 }

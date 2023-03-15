@@ -12,18 +12,19 @@ public class ArmRotate extends CommandBase {
   private Arms m_arms;
   private boolean up;
   private double m_speed;
+
   /** Creates a new RotateArm. */
   public ArmRotate(Arms arms, boolean up) {
     m_arms = arms;
     this.up = up;
-   // addRequirements(arms);
+    // addRequirements(arms);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(up)
+    if (up)
       m_speed = RobotPrefs.getArmRotateUpSpeed();
     else
       m_speed = RobotPrefs.getArmRotateDownSpeed();
@@ -33,12 +34,11 @@ public class ArmRotate extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_arms.isArmRotateIPDEnabled()){
-        
+    if (m_arms.isArmRotateIPDEnabled()) {
+
       double movement = RobotPrefs.getArmRotatePIDMovement() * (up ? 1 : -1);
       m_arms.moveArmRotatePIDPosition(movement, false);
-    }
-    else{
+    } else {
       m_arms.rotateArm(m_speed);
     }
   }

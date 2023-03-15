@@ -9,6 +9,7 @@ import frc.robot.subsystems.Fingers;
 
 public class FingersOut extends CommandBase {
   private Fingers m_fingers;
+
   /** Creates a new FingersIn. */
   public FingersOut(Fingers fingers) {
     m_fingers = fingers;
@@ -18,7 +19,8 @@ public class FingersOut extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

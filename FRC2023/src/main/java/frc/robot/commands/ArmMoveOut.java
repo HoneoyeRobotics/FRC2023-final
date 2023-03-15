@@ -11,6 +11,7 @@ import frc.robot.subsystems.Arms;
 public class ArmMoveOut extends CommandBase {
   /** Creates a new MoveArmOut. */
   private Arms arms;
+
   public ArmMoveOut(Arms arms) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arms = arms;

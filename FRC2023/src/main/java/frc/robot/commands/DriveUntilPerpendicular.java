@@ -16,6 +16,7 @@ public class DriveUntilPerpendicular extends CommandBase {
   private int scoringPositon;
   private int allianceColor = 0;
   private int slot;
+
   /** Creates a new DriveUntilPerpendicular. */
   public DriveUntilPerpendicular(DriveTrain driveTrain, Vision vision, Arms arms) {
     m_driveTrain = driveTrain;
@@ -35,9 +36,9 @@ public class DriveUntilPerpendicular extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_vision.closeToPerpendicular(allianceColor, scoringPositon) == false)
+    if (m_vision.closeToPerpendicular(allianceColor, scoringPositon) == false)
       m_driveTrain.arcadeDrive(.5, 0);
-    else 
+    else
       m_driveTrain.arcadeDrive(.35, 0);
   }
 

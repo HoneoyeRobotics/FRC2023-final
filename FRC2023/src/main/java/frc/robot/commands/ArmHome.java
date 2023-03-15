@@ -12,16 +12,16 @@ import frc.robot.subsystems.Arms;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ArmHome extends SequentialCommandGroup {
   private Arms arms;
+
   /** Creates a new ArmHome. */
   public ArmHome(Arms arms) {
     this.arms = arms;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new ClawClose(arms),
-    new ArmMoveCompletelyIn(arms),
-    new ArmRotateToPIDPosition(arms, 0).withTimeout(6),
-    new ClawOpen(arms)
-    );
+        new ClawClose(arms),
+        new ArmMoveCompletelyIn(arms),
+        new ArmRotateToPIDPosition(arms, 0).withTimeout(6),
+        new ClawOpen(arms));
   }
 }
