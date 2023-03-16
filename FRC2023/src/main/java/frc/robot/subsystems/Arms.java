@@ -74,7 +74,7 @@ public class Arms extends SubsystemBase {
     armLengthMotor.setIdleMode(IdleMode.kBrake);
     armRotateMotor.setIdleMode(IdleMode.kBrake);
     armRotatePIDController.setTolerance(1);
-    armRotateMotor.setSmartCurrentLimit(15);
+    armRotateMotor.setSmartCurrentLimit(40);
     armLengthMotor.setSmartCurrentLimit(40);
     armRotateLimit = new DigitalInput(Constants.ArmRotateLimitID);
   }

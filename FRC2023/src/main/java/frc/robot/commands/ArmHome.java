@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Arms;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -21,7 +22,9 @@ public class ArmHome extends SequentialCommandGroup {
     addCommands(
         new ClawClose(arms),
         new ArmMoveCompletelyIn(arms),
-        new ArmRotateToPIDPosition(arms, 0).withTimeout(6),
+        new ArmRotateToPIDPosition(arms, 5),
+        new WaitCommand(.25),
+        new ArmRotateToPIDPosition(arms, 0),
         new ClawOpen(arms));
   }
 }
