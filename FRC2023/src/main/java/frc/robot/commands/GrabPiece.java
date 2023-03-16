@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotPrefs;
 import frc.robot.Constants.ArmLength;
 import frc.robot.Constants.GrabPositions;
 import frc.robot.enums.GrabPosition;
@@ -14,7 +13,6 @@ import frc.robot.subsystems.Arms;
 public class GrabPiece extends CommandBase {
   private Arms arms;
   private GrabPosition grabPosition;
-  private double lengthSpeed;
   private double rotatePosition;
   private double lengthPosition;
 

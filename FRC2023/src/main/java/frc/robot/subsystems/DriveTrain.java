@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import org.ejml.sparse.csc.linsol.qr.LinearSolverQrLeftLooking_DSCC;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;

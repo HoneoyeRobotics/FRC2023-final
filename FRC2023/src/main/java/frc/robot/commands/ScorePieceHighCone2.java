@@ -4,20 +4,21 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ArmLength;
 import frc.robot.Constants.ScorePositions;
 import frc.robot.enums.ScoringHeight;
 import frc.robot.subsystems.Arms;
 
-public class ScorePiece2 extends CommandBase {
+public class ScorePieceHighCone2 extends CommandBase {
   private Arms m_arms;
   private double lengthPosition;
   private int m_scoringSlot;
   private boolean isCone;
   private ScoringHeight m_scoringHeight;
   /** Creates a new ScorePiece. */
-  public ScorePiece2(Arms arms) {
+  public ScorePieceHighCone2(Arms arms) {
     m_arms = arms;
 
     addRequirements(m_arms);
@@ -30,49 +31,39 @@ public class ScorePiece2 extends CommandBase {
     m_scoringHeight = m_arms.getScoringHeight();
 
     isCone = m_arms.isCone(m_scoringSlot);
-
-    if(m_scoringHeight == ScoringHeight.Low) {
-      lengthPosition = ScorePositions.lowLength;
+    boolean executeHigh2 = false;
+    if(isCone && m_scoringHeight == ScoringHeight.High)
+    {
+      m_arms.armLengthBrakeOff();
+      executeHigh2 = true;
     }
-    else {
-      if(m_scoringHeight == ScoringHeight.Med) {
-        if(isCone) {
-          lengthPosition = ScorePositions.coneMedLength;
-        }
-        else {
-          lengthPosition = ScorePositions.cubeMedLength;
-        }
-        }
-      else {
-        if(isCone) {
-          lengthPosition = ScorePositions.coneHighLength;
-        }
-        else {
-          lengthPosition = ScorePositions.cubeHighLength;
-        }
-      }
-    }
-    m_arms.armLengthBrakeOff();
+    SmartDashboard.putBoolean("ExecuteHigh2", executeHigh2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      m_arms.moveArmToPosition(lengthPosition);
+    if((isCone && m_scoringHeight == ScoringHeight.High))
+       m_arms.moveArmToPosition(lengthPosition);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    if((isCone && m_scoringHeight == ScoringHeight.High)) {
     m_arms.armLengthBrakeOn();
     m_arms.moveArmInOut(0);
+    }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (((m_arms.armLengthMotorCurrentPosition() + ArmLength.deadband) > lengthPosition 
+    return isCone == false || m_scoringHeight != ScoringHeight.High ||
+    (isCone && m_scoringHeight == ScoringHeight.High && 
+    
+    (((m_arms.armLengthMotorCurrentPosition() + ArmLength.deadband) > lengthPosition 
           && (m_arms.armLengthMotorCurrentPosition() - ArmLength.deadband) < lengthPosition)
-          || m_arms.isArmOut());
+          || m_arms.isArmOut()));
   }
 }

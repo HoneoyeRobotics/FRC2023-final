@@ -67,8 +67,8 @@ public class RobotContainer {
     driverJoystick.y().whileTrue(new BalanceOnPlatform(driveTrain, true));
 
     //left or right to rotate to peg
-    driverJoystick.povLeft().whileTrue(new RotateToPeg(vision, driveTrain));
-    driverJoystick.povRight().whileTrue(new RotateToPeg(vision, driveTrain));
+    driverJoystick.povLeft().whileTrue(new RotateToPeg( driveTrain, vision));
+    driverJoystick.povRight().whileTrue(new RotateToPeg(driveTrain, vision));
     
     //hold up to drive until correct distance
     driverJoystick.povUp().whileTrue(new DriveUntilCorrectDistance(driveTrain, vision));
@@ -106,7 +106,12 @@ public class RobotContainer {
     buttonBoard.axisGreaterThan(0, .5).onTrue(new ChangeScoringSlot(arms, true));
     buttonBoard.axisLessThan(0, -.5).onTrue(new ChangeScoringSlot(arms, false));
 
-    buttonBoard.button(2).onTrue(new ScorePiece1(arms).andThen(new WaitCommand(.5)).andThen(new ScorePiece2(arms)));
+    buttonBoard.button(2).onTrue(
+        new ScorePieceHighCone(arms)
+        .andThen(new ScorePieceHighCone2(arms))
+        .andThen(new ScorePiece1(arms))
+        .andThen(new WaitCommand(.5))
+        .andThen(new ScorePiece2(arms)));
   }
 
   private void initializeScorePosition() {
