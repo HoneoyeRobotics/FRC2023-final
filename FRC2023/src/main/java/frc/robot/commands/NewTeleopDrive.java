@@ -24,6 +24,7 @@ public class NewTeleopDrive extends CommandBase {
     m_leftTriggerSupplier = leftTriggerSupplier;
     m_rightTriggerSupplier = rightTriggerSupplier;
     m_leftStickXSupplier = leftStickXSupplier;
+    m_drivetrain = drivetrain;
     addRequirements(m_drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }

@@ -27,7 +27,7 @@ public class Arms extends SubsystemBase {
   private DigitalInput armRotateLimit;
   private boolean armOut;
   private boolean armIn;
-  
+
   private ScoringHeight scoringHeight = ScoringHeight.Med;
   private GrabPosition grabPosition;
 
@@ -332,9 +332,10 @@ public class Arms extends SubsystemBase {
     // This method will be called once per scheduler run
 
     if (armRotatePIDEnabled) {
-
+      boolean movingUp = armRotatePIDSetpoint > armRotateMotorCurrentPosition();
       double rotateSpeed = armRotatePIDController.calculate(armRotateMotorCurrentPosition(), armRotatePIDSetpoint);
-      if (rotateSpeed < 0 && armRotateLimit.get() == false) {
+      
+      if ((rotateSpeed < 0 && armRotateLimit.get() == false) && movingUp == false ) {
         rotateSpeed = 0;
         resetArmRotateEncoder();
         armRotatePIDSetpoint = armRotateMotorCurrentPosition();

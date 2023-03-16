@@ -24,8 +24,9 @@ public class ArmHome extends SequentialCommandGroup {
         new ArmMoveCompletelyIn(arms),
         new ArmRotateToPIDPosition(arms, 5),
         new WaitCommand(.25),
+        // new ArmRotateToPIDPosition(arms, 1),
+        // new WaitCommand(.25),
         new ArmRotateToPIDPosition(arms, 0),
-        new ArmRotateToPIDPosition(arms, -2),
         new ClawOpen(arms));
   }
 }
