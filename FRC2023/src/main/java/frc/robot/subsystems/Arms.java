@@ -56,7 +56,7 @@ public class Arms extends SubsystemBase {
   /** Creates a new Arm. */
   public Arms() {
     // TODO: add robot pref for kP value
-    armRotatePIDController = new PIDController(RobotPrefs.getArmRotateKp(), 0.0, 0.0);
+    armRotatePIDController = new PIDController(RobotPrefs.getArmRotateKp(), 0.0, RobotPrefs.getArmRotateKd());
 
     armLengthMotor = new CANSparkMax(CanIDs.ArmLengthMotor, MotorType.kBrushless);
     armRotateMotor = new CANSparkMax(CanIDs.ArmRotateMotor, MotorType.kBrushless);
@@ -179,7 +179,8 @@ public class Arms extends SubsystemBase {
       armRotatePIDSetpoint = position;
     else
       armRotatePIDSetpoint += position;
-
+    if (armRotatePIDSetpoint > 50)
+      armRotatePIDSetpoint = 50;
     // If debug mode is off this will ensure the PID does not set the position less
     // than 0 or more than the max
     if (RobotPrefs.getDebugMode() == false) {
@@ -337,7 +338,7 @@ public class Arms extends SubsystemBase {
         resetArmRotateEncoder();
         armRotatePIDSetpoint = armRotateMotorCurrentPosition();
       } else if (rotateSpeed < 0) {
-        rotateSpeed = rotateSpeed / 4;
+        rotateSpeed = rotateSpeed / 2;
       }
       armRotateMotor.set(rotateSpeed);
       SmartDashboard.putNumber("armRotateMotorCurrentPosition", armRotateMotorCurrentPosition());

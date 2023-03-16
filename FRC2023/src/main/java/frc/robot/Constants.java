@@ -72,13 +72,13 @@ public final class Constants {
         public static final double lowLength = 1;
         public static final double lowHeight = 25;
         public static final double cubeMedLength = 19;
-        public static final double cubeMedHeight = 43;
+        public static final double cubeMedHeight = 30;
         public static final double cubeHighLength = 67;
-        public static final double cubeHighHeight = 53;
+        public static final double cubeHighHeight = 39;
         public static final double coneMedLength = 8.5;
-        public static final double coneMedHeight = 53;
+        public static final double coneMedHeight = 38;
         public static final double coneHighLength = 52;
-        public static final double coneHighHeight = 61;
+        public static final double coneHighHeight = 50;
     }
 
 
@@ -104,7 +104,7 @@ public final class Constants {
         AprilTagYcoordinates[6] - shift, AprilTagYcoordinates[6], AprilTagYcoordinates[6] + shift
     };
 
-    public static final double ramprate = .01;
+    public static final double ramprate = .02;
     public static final double rampratez = .035;
     public final class Drive {
         public static final double deadband = .005;

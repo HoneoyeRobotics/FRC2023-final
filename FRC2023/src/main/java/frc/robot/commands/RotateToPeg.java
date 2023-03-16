@@ -21,7 +21,7 @@ public class RotateToPeg extends CommandBase {
     this.vision = vision;
     addRequirements(driveTrain);
 
-    pidController = new PIDController(0.2, 0, 0);
+    pidController = new PIDController(0.03, 0, 0);
     pidController.setTolerance(5, 10);
 
   }

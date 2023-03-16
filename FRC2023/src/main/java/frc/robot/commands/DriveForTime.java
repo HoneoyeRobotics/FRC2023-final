@@ -15,6 +15,7 @@ public class DriveForTime extends CommandBase {
   public DriveForTime(DriveTrain driveTrain, double speed) {
     m_DriveTrain = driveTrain;
     this.speed = speed;
+    addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

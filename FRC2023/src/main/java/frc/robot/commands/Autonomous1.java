@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.DriveTrain;
 
@@ -25,11 +26,13 @@ public class Autonomous1 extends SequentialCommandGroup {
     addCommands(
         new ArmMoveIn(arms).withTimeout(.2),
         new ClawClose(arms),
+        new WaitCommand(0.5),
         new ScorePiece1(arms),
         new ScorePiece2(arms),
         new ClawOpen(arms),
+        new WaitCommand(0.5),
         new DriveForTime(drivetrain, -.5).withTimeout(.5),
         new ArmHome(arms),
-        new DriveForTime(drivetrain, -.5).withTimeout(5));
+        new DriveForTime(drivetrain, -.5).withTimeout(4));
   }
 }

@@ -31,25 +31,19 @@ public final class RobotPrefs {
         return Preferences.getBoolean("DebugMode", false);
     }
 
-    public static double getBottomPickupSpeed() {
-        if (!Preferences.containsKey("BottomPickupSpeed")) {
-            Preferences.setDouble("BottomPickupSpeed", 0.5);
-        }
-        return Preferences.getDouble("BottomPickupSpeed", 0.5);
-    }
 
     public static double getArmLengthInSpeed() {
         if (!Preferences.containsKey("ArmLengthInSpeed")) {
-            Preferences.setDouble("ArmLengthInSpeed", -.25);
+            Preferences.setDouble("ArmLengthInSpeed", 0.18);
         }
-        return Preferences.getDouble("ArmLengthInSpeed", -.25);
+        return Preferences.getDouble("ArmLengthInSpeed", 0.18);
     }
 
     public static double getArmLengthOutSpeed() {
         if (!Preferences.containsKey("ArmLengthOutSpeed")) {
-            Preferences.setDouble("ArmLengthOutSpeed", 0.25);
+            Preferences.setDouble("ArmLengthOutSpeed", 0.18);
         }
-        return Preferences.getDouble("ArmLengthOutSpeed", 0.25);
+        return Preferences.getDouble("ArmLengthOutSpeed", 0.18);
     }
 
     public static double getArmRotateUpSpeed() {
@@ -68,16 +62,16 @@ public final class RobotPrefs {
 
     public static double getArmRotatePIDMovement() {
         if (!Preferences.containsKey("getArmRotatePIDMovement")) {
-            Preferences.setDouble("getArmRotatePIDMovement", 1);
+            Preferences.setDouble("getArmRotatePIDMovement", 0.4);
         }
-        return Preferences.getDouble("getArmRotatePIDMovement", 1);
+        return Preferences.getDouble("getArmRotatePIDMovement", 0.4);
     }
 
     public static double getRotateRobotSpeed() {
         if (!Preferences.containsKey("RotateRobotSpeed")) {
-            Preferences.setDouble("RotateRobotSpeed", 0.1);
+            Preferences.setDouble("RotateRobotSpeed", 0.5);
         }
-        return Preferences.getDouble("RotateRobotSpeed", 0.1);
+        return Preferences.getDouble("RotateRobotSpeed", 0.5);
     }
 
     public static double getRotateRobotDeadband() {
@@ -96,9 +90,9 @@ public final class RobotPrefs {
 
     public static double getBalanceP() {
         if (!Preferences.containsKey("BalanceP")) {
-            Preferences.setDouble("BalanceP", 0.005);
+            Preferences.setDouble("BalanceP", 0.03);
         }
-        return Preferences.getDouble("BalanceP", 0.005);
+        return Preferences.getDouble("BalanceP", 0.03);
     }
 
     public static double getArmRotateKp() {
@@ -109,10 +103,19 @@ public final class RobotPrefs {
 
     }
 
+    public static double getArmRotateKd() {
+        if (!Preferences.containsKey("ArmRotateKd")) {
+            Preferences.setDouble("ArmRotateKd", 0.05);
+        }
+        return Preferences.getDouble("ArmRotateKd", 0.05);
+
+    }
+
+
     public static double getReflectiveTagOffset() {
         if (!Preferences.containsKey("ReflectiveTagOffset")) {
-            Preferences.setDouble("ReflectiveTagOffset", 1.5);
+            Preferences.setDouble("ReflectiveTagOffset", 4.5);
         }
-        return Preferences.getDouble("ReflectiveTagOffset", 1.5);
+        return Preferences.getDouble("ReflectiveTagOffset", 4.5);
     }
 }
