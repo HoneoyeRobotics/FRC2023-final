@@ -35,6 +35,7 @@ public class ScorePieceHighCone2 extends CommandBase {
     if(isCone && m_scoringHeight == ScoringHeight.High)
     {
       m_arms.armLengthBrakeOff();
+      lengthPosition = ScorePositions.coneHighLength;
       executeHigh2 = true;
     }
     SmartDashboard.putBoolean("ExecuteHigh2", executeHigh2);
