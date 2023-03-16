@@ -37,13 +37,11 @@ private boolean blueCheck = false;
     if(blueCheck == true) 
       currentTargetHeading = initialHeading *( RobotPrefs.isBlue() ? 1 : -1);
     i = 0;
-    SmartDashboard.putNumber("target heading", currentTargetHeading);
     yaw = m_DriveTrain.getYaw();
     clockwise = (currentTargetHeading - yaw <= 0);
 
     sign = clockwise ? -1 : 1;
     
-    SmartDashboard.putNumber("target sign", sign);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -69,7 +67,6 @@ private boolean blueCheck = false;
     rotationSpeed *= sign;
 
     
-    SmartDashboard.putNumber("target rotationSpeed", rotationSpeed);
     m_DriveTrain.arcadeDrive(0, rotationSpeed);
     i++;
   }
