@@ -338,7 +338,7 @@ public class Arms extends SubsystemBase {
       if ((rotateSpeed < 0 && armRotateLimit.get() == false) && movingUp == false ) {
         rotateSpeed = 0;
         resetArmRotateEncoder();
-        armRotatePIDSetpoint = armRotateMotorCurrentPosition();
+        armRotatePIDSetpoint = 0.0;
       } else if (rotateSpeed < 0) {
         rotateSpeed = rotateSpeed / 2;
       }
