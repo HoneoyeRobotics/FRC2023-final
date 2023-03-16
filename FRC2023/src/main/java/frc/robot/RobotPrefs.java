@@ -82,10 +82,10 @@ public final class RobotPrefs {
     }
 
     public static boolean isBlue() {
-        if (!Preferences.containsKey("Alliance")) {
-            Preferences.setBoolean("Alliance", true);
+        if (!Preferences.containsKey("BlueAlliance")) {
+            Preferences.setBoolean("BlueAlliance", true);
         }
-        return Preferences.getBoolean("Alliance", true);
+        return Preferences.getBoolean("BlueAlliance", true);
     }
 
     public static double getBalanceP() {

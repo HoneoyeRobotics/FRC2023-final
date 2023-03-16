@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotPrefs;
 import frc.robot.enums.LimeLightState;
 
 public class Vision extends SubsystemBase {
@@ -21,7 +22,7 @@ public class Vision extends SubsystemBase {
   private NetworkTableEntry main_tx = main_limelight.getEntry("tx");
   private NetworkTableEntry main_tz = main_limelight.getEntry("camerapose_targetspace");
 
-  private NetworkTableEntry aprilTagID = main_limelight.getEntry("tid");
+  //private NetworkTableEntry aprilTagID = main_limelight.getEntry("tid");
   public boolean isBlue;
 
   /** Creates a new Vision. */
@@ -79,6 +80,10 @@ public class Vision extends SubsystemBase {
 
   public boolean correctDistance() {
     double target = -1.7;
+    if (isBlue)
+      target = -1.7;
+    else 
+      target = -1.7;
     double[] coordinates = main_tz.getDoubleArray(new double[] {});
     if (coordinates.length < 3 || coordinates[2] == 0.0)
       return false;
@@ -107,7 +112,7 @@ public class Vision extends SubsystemBase {
     // }
 
     // SmartDashboard.putBoolean("AtSeven?", isPerpendicular(0, 4));
-
+    isBlue = RobotPrefs.isBlue();
     SmartDashboard.putBoolean("isblue", isBlue);
     SmartDashboard.putBoolean("CorrectDistance", correctDistance());
   }

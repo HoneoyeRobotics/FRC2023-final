@@ -12,7 +12,6 @@ import frc.robot.subsystems.Arms;
 
 public class ScorePieceHighCone extends CommandBase {
   private Arms m_arms;
-  private double rotatePosition;
   private int m_scoringSlot;
   private boolean isCone;
   private ScoringHeight m_scoringHeight;

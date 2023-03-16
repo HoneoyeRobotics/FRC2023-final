@@ -27,8 +27,11 @@ public class Arms extends SubsystemBase {
   private DigitalInput armRotateLimit;
   private boolean armOut;
   private boolean armIn;
+  
+  private ScoringHeight scoringHeight = ScoringHeight.Med;
+  private GrabPosition grabPosition;
 
-  private int scoringSlot = 5;
+  private int scoringSlot = 1;
   private String l_position;
 
   private boolean clawOpened;
@@ -46,8 +49,6 @@ public class Arms extends SubsystemBase {
   private PIDController armRotatePIDController;
   private double armRotatePIDSetpoint;
 
-  private ScoringHeight scoringHeight = ScoringHeight.Low;
-  private GrabPosition grabPosition;
 
   private NetworkTableInstance table = NetworkTableInstance.getDefault();
   private NetworkTable myTable = table.getTable("Shuffleboard/Tab 2");
@@ -56,7 +57,9 @@ public class Arms extends SubsystemBase {
   /** Creates a new Arm. */
   public Arms() {
     // TODO: add robot pref for kP value
-    armRotatePIDController = new PIDController(RobotPrefs.getArmRotateKp(), 0.0, RobotPrefs.getArmRotateKd());
+    armRotatePIDController = new PIDController(0.05, 0.02, 0.0);
+    armRotatePIDController.setSetpoint(0.0);
+    armRotatePIDController.setTolerance(0.5);
 
     armLengthMotor = new CANSparkMax(CanIDs.ArmLengthMotor, MotorType.kBrushless);
     armRotateMotor = new CANSparkMax(CanIDs.ArmRotateMotor, MotorType.kBrushless);
@@ -69,11 +72,9 @@ public class Arms extends SubsystemBase {
     proxSensorIn = new DigitalInput(Constants.proxSensorInID);
 
     armRotateMotor.getEncoder().setPosition(0.0);
-    armRotatePIDController.setSetpoint(0.0);
 
     armLengthMotor.setIdleMode(IdleMode.kBrake);
     armRotateMotor.setIdleMode(IdleMode.kBrake);
-    armRotatePIDController.setTolerance(1);
     armRotateMotor.setSmartCurrentLimit(40);
     armLengthMotor.setSmartCurrentLimit(40);
     armRotateLimit = new DigitalInput(Constants.ArmRotateLimitID);

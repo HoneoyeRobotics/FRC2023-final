@@ -74,7 +74,7 @@ public final class Constants {
         public static final double cubeMedLength = 19;
         public static final double cubeMedHeight = 30;
         public static final double cubeHighLength = 67;
-        public static final double cubeHighHeight = 39;
+        public static final double cubeHighHeight = 40.9;
         public static final double coneMedLength = 8.5;
         public static final double coneMedHeight = 38;
         public static final double coneHighLength = 52;
