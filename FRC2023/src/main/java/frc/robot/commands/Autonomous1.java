@@ -33,6 +33,6 @@ public class Autonomous1 extends SequentialCommandGroup {
         new WaitCommand(0.5),
         new DriveForTime(drivetrain, -.5).withTimeout(.5),
         new ArmHome(arms),
-        new DriveForTime(drivetrain, -.5).withTimeout(4));
+        new DriveForTime(drivetrain, -.5).withTimeout(3));
   }
 }

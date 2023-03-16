@@ -72,7 +72,7 @@ public final class Constants {
         public static final double lowLength = 1;
         public static final double lowHeight = 25;
         public static final double cubeMedLength = 19;
-        public static final double cubeMedHeight = 30;
+        public static final double cubeMedHeight = 35;
         public static final double cubeHighLength = 67;
         public static final double cubeHighHeight = 40.9;
         public static final double coneMedLength = 8.5;
@@ -107,9 +107,7 @@ public final class Constants {
     public static final double ramprate = .02;
     public static final double rampratez = .035;
     public final class Drive {
-        public static final double deadband = .005;
+        public static final double deadband = .01;
     }
-
-
-
+    
 }
