@@ -33,7 +33,7 @@ public class RobotContainer {
     vision = new Vision();
     fingers = new Fingers();
     // default Teleop command
-    driveTrain.setDefaultCommand(new TeleopDrive(driveTrain,
+    driveTrain.setDefaultCommand(new NewTeleopDrive(driveTrain,
         () -> driverJoystick.getLeftTriggerAxis(),
         () -> driverJoystick.getRightTriggerAxis(),
         () -> driverJoystick.getLeftX()));
