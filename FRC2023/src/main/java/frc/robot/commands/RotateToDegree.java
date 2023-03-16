@@ -4,25 +4,29 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotPrefs;
 import frc.robot.subsystems.DriveTrain;
 
 public class RotateToDegree extends CommandBase {
   private DriveTrain m_DriveTrain;
-  private double targetHeading;
+  private double initialHeading;
   private double rotationSpeed;
+  private double currentTargetHeading;
   private double sign;
   private double yaw;
   private boolean clockwise;
-
+private boolean blueCheck = false;
   private int i;
 
   /** Creates a new RotateToDegree. */
-  public RotateToDegree(DriveTrain driveTrain, double targetHeading) {
+  public RotateToDegree(DriveTrain driveTrain, double initialHeading, boolean blueCheck) {
     m_DriveTrain = driveTrain;
-    this.targetHeading = targetHeading;
+    this.blueCheck = blueCheck;
 
+    this.initialHeading = initialHeading;
+    currentTargetHeading = initialHeading;
     addRequirements(m_DriveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,18 +34,23 @@ public class RotateToDegree extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if(blueCheck == true) 
+      currentTargetHeading = initialHeading *( RobotPrefs.isBlue() ? 1 : -1);
     i = 0;
+    SmartDashboard.putNumber("target heading", currentTargetHeading);
     yaw = m_DriveTrain.getYaw();
-    clockwise = (targetHeading - yaw <= 0);
+    clockwise = (currentTargetHeading - yaw <= 0);
 
     sign = clockwise ? -1 : 1;
+    
+    SmartDashboard.putNumber("target sign", sign);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     yaw = m_DriveTrain.getYaw();
-    double heading = Math.abs(targetHeading - yaw);
+    double heading = Math.abs(currentTargetHeading - yaw);
     // rotationSpeed = (Math.abs(targetHeading - yaw) > 25) ?
     // RobotPrefs.getRotateRobotSpeed() : (RobotPrefs.getRotateRobotSpeed() / 1.3);
 
@@ -58,6 +67,9 @@ public class RotateToDegree extends CommandBase {
     }
 
     rotationSpeed *= sign;
+
+    
+    SmartDashboard.putNumber("target rotationSpeed", rotationSpeed);
     m_DriveTrain.arcadeDrive(0, rotationSpeed);
     i++;
   }
@@ -76,6 +88,6 @@ public class RotateToDegree extends CommandBase {
     if (i >= 10) {
       i = 0;
     }
-    return (clockwise ? (yaw <= targetHeading + .25) : (yaw >= targetHeading - .25));
+    return (clockwise ? (yaw <= currentTargetHeading + .25) : (yaw >= currentTargetHeading - .25));
   }
 }

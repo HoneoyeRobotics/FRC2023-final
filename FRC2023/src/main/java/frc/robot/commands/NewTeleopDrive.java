@@ -44,7 +44,7 @@ public class NewTeleopDrive extends CommandBase {
       zrotation = 0;
     else {
       zrotation = zrotation * zrotation * (zrotation > 0 ? 1 : -1);
-      zrotation = zrotation * .6;
+      zrotation = zrotation * .6 * -1;
     }
 
     if ((xspeed < Drive.deadband) && (xspeed > (Drive.deadband * -1)))

@@ -30,9 +30,9 @@ public class MoveToScorePos extends SequentialCommandGroup {
         new BombScoreOff(driveTrain),
         new DriveUntilCorrectDistance(m_driveTrain, m_vision).raceWith(new CheckBombSocre(m_driveTrain)),
         new WaitCommand(.2).raceWith(new CheckBombSocre(m_driveTrain)),
-        new RotateToDegree(m_driveTrain, RobotPrefs.isBlue() ? 90 : -90).raceWith(new CheckBombSocre(m_driveTrain)),
+        new RotateToDegree(m_driveTrain, 90, true).raceWith(new CheckBombSocre(m_driveTrain)),
         new DriveUntilPerpendicular(m_driveTrain, m_vision, m_arms).raceWith(new CheckBombSocre(m_driveTrain)),
-        new RotateToDegree(m_driveTrain, 0).raceWith(new CheckBombSocre(m_driveTrain)),
+        new RotateToDegree(m_driveTrain, 0, false).raceWith(new CheckBombSocre(m_driveTrain)),
         new DriveUntilCollision(m_driveTrain).raceWith(new CheckBombSocre(m_driveTrain)),
         new BombScoreOff(m_driveTrain));
   }
