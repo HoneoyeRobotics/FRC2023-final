@@ -57,7 +57,7 @@ public class Arms extends SubsystemBase {
   /** Creates a new Arm. */
   public Arms() {
     // TODO: add robot pref for kP value
-    armRotatePIDController = new PIDController(0.05, 0.02, 0.0);
+    armRotatePIDController = new PIDController(0.04, 0.02, 0.0);
     armRotatePIDController.setSetpoint(0.0);
     armRotatePIDController.setTolerance(0.5);
 
