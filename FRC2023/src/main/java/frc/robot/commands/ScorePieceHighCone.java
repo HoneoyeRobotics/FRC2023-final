@@ -32,8 +32,8 @@ public class ScorePieceHighCone extends CommandBase {
 
     isCone = m_arms.isCone(m_scoringSlot);
 boolean executeHigh1 = false;
-    if(isCone && m_scoringHeight == ScoringHeight.High){
-      m_arms.moveArmRotatePIDPosition(ScorePositions.coneMedHeight, true);
+    if(m_scoringHeight == ScoringHeight.High){
+      m_arms.moveArmRotatePIDPosition(32, true);
       executeHigh1 = true;
     }
     SmartDashboard.putBoolean("ExecuteHigh1", executeHigh1);
@@ -53,7 +53,7 @@ boolean executeHigh1 = false;
   @Override
   public boolean isFinished() {
     
-    return (isCone && m_scoringHeight == ScoringHeight.High && m_arms.isArmRotateAtPosition()) 
-          || isCone == false || m_scoringHeight != ScoringHeight.High;
+    return (m_scoringHeight == ScoringHeight.High && m_arms.isArmRotateAtPosition()) 
+          || m_scoringHeight != ScoringHeight.High;
   }
 }

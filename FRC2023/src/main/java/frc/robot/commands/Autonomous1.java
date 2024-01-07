@@ -25,14 +25,14 @@ public class Autonomous1 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new ArmMoveIn(arms).withTimeout(.2),
+        new ArmMoveIn(arms).withTimeout(.4),
         new ClawClose(arms),
         new WaitCommand(0.5),
-        
         new ScorePiece1(arms),
         new ScorePiece2(arms),
-        new WaitCommand(1),        
-        new DriveForTime(drivetrain, 0.25).withTimeout(0.5),
+        new WaitCommand(.25),        
+        new DriveForTime(drivetrain, 0.25).withTimeout(0.4),
+        new WaitCommand(1),   
         new ClawToggle(arms),
         new WaitCommand(0.5),
         new DriveForTime(drivetrain, -.5).withTimeout(.5),

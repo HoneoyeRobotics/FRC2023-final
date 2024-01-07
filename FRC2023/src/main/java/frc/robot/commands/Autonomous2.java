@@ -4,9 +4,12 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Fingers;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -15,11 +18,12 @@ public class Autonomous2 extends SequentialCommandGroup {
   private Arms arms;
   private DriveTrain drivetrain;
 
+  private Fingers fingers;
   /** Creates a new Autonomous2. */
-  public Autonomous2(Arms arms, DriveTrain drivetrain) {
+  public Autonomous2(Arms arms, DriveTrain drivetrain, Fingers fingers) {
     this.arms = arms;
     this.drivetrain = drivetrain;
-
+    this.fingers = fingers;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -30,8 +34,9 @@ public class Autonomous2 extends SequentialCommandGroup {
         // new ClawOpen(arms),
         // new DriveForTime(drivetrain, -.5).withTimeout(.5),
         // new ArmHome(arms),
-        new DriveForTime(drivetrain, -.5).withTimeout(5),
-        new DriveUntilTipping(drivetrain, true),
+        
+        new FingersOut(fingers).withTimeout(2),
+        new DriveUntilTipping(drivetrain, false),
         new BalanceOnPlatform(drivetrain, false));
   }
 }

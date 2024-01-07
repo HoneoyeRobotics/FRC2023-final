@@ -46,7 +46,10 @@ public class ArmRotate extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_arms.rotateArm(0.0);
+    if(m_arms.isArmRotateIPDEnabled() == false)
+      m_arms.rotateArm(0.0);
+    else 
+      m_arms.moveArmRotatePIDPosition(m_arms.armRotateMotorCurrentPosition(), true);
     // m_arms.armRotateBrakeOn();
   }
 

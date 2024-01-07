@@ -45,8 +45,10 @@ public class RobotContainer {
     SmartDashboard.putData("ResetLengthEncoder", new ResetArmLengthEncoder(arms));
     SmartDashboard.putData("ResetRotateEncoder", new ResetArmRotateEncoder(arms));
 
-    selectedAutoMode.setDefaultOption("Score and backup", new Autonomous1(arms, driveTrain));
-    selectedAutoMode.addOption("Balance", new Autonomous2(arms, driveTrain));
+    selectedAutoMode.setDefaultOption("Score Cube and backup", new Autonomous3(fingers, driveTrain));
+    selectedAutoMode.addOption("Score Cone and backup", new Autonomous1(arms, driveTrain));
+    selectedAutoMode.addOption("Balance", new Autonomous2(arms, driveTrain, fingers));
+    selectedAutoMode.addOption("Rotate then Balance", new Autonomous4(arms, driveTrain, fingers));
     SmartDashboard.putData("AutoMode", selectedAutoMode);
   }
 
@@ -64,7 +66,7 @@ public class RobotContainer {
     driverJoystick.a().whileTrue(new FingersIn(fingers));
     driverJoystick.b().whileTrue(new FingersOut(fingers));
 
-    driverJoystick.y().whileTrue(new BalanceOnPlatform(driveTrain, true));
+    driverJoystick.y().whileTrue(new BalanceOnPlatform(driveTrain, false));
 
     //left or right to rotate to peg
     driverJoystick.povLeft().whileTrue(new RotateToPeg( driveTrain, vision));
@@ -74,7 +76,7 @@ public class RobotContainer {
     driverJoystick.povUp().whileTrue(new DriveUntilCorrectDistance(driveTrain, vision));
     //driverJoystick.povUp()
   }
-
+ 
   private void configureButtonBoard() {
 
     // buttonBoard.button(2).whileTrue(new RunBottomPickup(pickup));
@@ -108,6 +110,7 @@ public class RobotContainer {
 
     buttonBoard.button(2).onTrue(
         new ScorePieceHighCone(arms)
+        .andThen(new WaitCommand(.5))
         .andThen(new ScorePieceHighCone2(arms))
         .andThen(new ScorePiece1(arms))
         .andThen(new WaitCommand(.5))

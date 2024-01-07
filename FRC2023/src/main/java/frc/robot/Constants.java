@@ -73,12 +73,12 @@ public final class Constants {
         public static final double lowHeight = 25;
         public static final double cubeMedLength = 19;
         public static final double cubeMedHeight = 35;
-        public static final double cubeHighLength = 67;
-        public static final double cubeHighHeight = 40.9;
-        public static final double coneMedLength = 8.5;
+        public static final double cubeHighLength = 65;
+        public static final double cubeHighHeight = 46;
+        public static final double coneMedLength = 13;
         public static final double coneMedHeight = 38;
-        public static final double coneHighLength = 52;
-        public static final double coneHighHeight = 50;
+        public static final double coneHighLength = 50;
+        public static final double coneHighHeight = 48;
     }
 
 

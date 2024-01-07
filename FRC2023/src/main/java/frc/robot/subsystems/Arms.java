@@ -49,7 +49,6 @@ public class Arms extends SubsystemBase {
   private PIDController armRotatePIDController;
   private double armRotatePIDSetpoint;
 
-
   private NetworkTableInstance table = NetworkTableInstance.getDefault();
   private NetworkTable myTable = table.getTable("Shuffleboard/Tab 2");
 
@@ -57,9 +56,9 @@ public class Arms extends SubsystemBase {
   /** Creates a new Arm. */
   public Arms() {
     // TODO: add robot pref for kP value
-    armRotatePIDController = new PIDController(0.04, 0.02, 0.0);
+    armRotatePIDController = new PIDController(0.045, 0.02, 0.0);
     armRotatePIDController.setSetpoint(0.0);
-    armRotatePIDController.setTolerance(0.5);
+    armRotatePIDController.setTolerance(0.75);
 
     armLengthMotor = new CANSparkMax(CanIDs.ArmLengthMotor, MotorType.kBrushless);
     armRotateMotor = new CANSparkMax(CanIDs.ArmRotateMotor, MotorType.kBrushless);
@@ -327,6 +326,8 @@ public class Arms extends SubsystemBase {
     return armLengthMotorCurrentPosition() > ArmLength.maxPosition;
   }
 
+  public boolean home = false;
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -334,13 +335,18 @@ public class Arms extends SubsystemBase {
     if (armRotatePIDEnabled) {
       boolean movingUp = armRotatePIDSetpoint > armRotateMotorCurrentPosition();
       double rotateSpeed = armRotatePIDController.calculate(armRotateMotorCurrentPosition(), armRotatePIDSetpoint);
-      
-      if ((rotateSpeed < 0 && armRotateLimit.get() == false) && movingUp == false ) {
+      if (home == false) {
+        if ((rotateSpeed < 0 && armRotateLimit.get() == false) && movingUp == false) {
+          rotateSpeed = 0;
+          resetArmRotateEncoder();
+          armRotatePIDSetpoint = 0.0;
+        } else if (rotateSpeed < 0) {
+          rotateSpeed = rotateSpeed / 2;
+        }
+      }
+      else{
+        if (armRotateLimit.get() == false)
         rotateSpeed = 0;
-        resetArmRotateEncoder();
-        armRotatePIDSetpoint = 0.0;
-      } else if (rotateSpeed < 0) {
-        rotateSpeed = rotateSpeed / 2;
       }
       armRotateMotor.set(rotateSpeed);
       SmartDashboard.putNumber("armRotateMotorCurrentPosition", armRotateMotorCurrentPosition());

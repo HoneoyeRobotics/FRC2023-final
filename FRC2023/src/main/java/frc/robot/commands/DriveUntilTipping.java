@@ -28,7 +28,7 @@ public class DriveUntilTipping extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.arcadeDrive(forward ? .5 : -.5, 0);
+    m_drivetrain.arcadeDrive((forward ? .675 : -.675), 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +40,6 @@ public class DriveUntilTipping extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_drivetrain.getPitch() > 10;
+    return m_drivetrain.getPitch() > 10 || m_drivetrain.getPitch() < -10;
   }
 }

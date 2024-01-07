@@ -32,10 +32,13 @@ public class ScorePieceHighCone2 extends CommandBase {
 
     isCone = m_arms.isCone(m_scoringSlot);
     boolean executeHigh2 = false;
-    if(isCone && m_scoringHeight == ScoringHeight.High)
+    if(m_scoringHeight == ScoringHeight.High)
     {
       m_arms.armLengthBrakeOff();
+    if(isCone)
       lengthPosition = ScorePositions.coneHighLength;
+    else
+      lengthPosition = ScorePositions.cubeHighLength;
       executeHigh2 = true;
     }
     SmartDashboard.putBoolean("ExecuteHigh2", executeHigh2);
@@ -44,14 +47,14 @@ public class ScorePieceHighCone2 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if((isCone && m_scoringHeight == ScoringHeight.High))
+    if((m_scoringHeight == ScoringHeight.High))
        m_arms.moveArmToPosition(lengthPosition);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if((isCone && m_scoringHeight == ScoringHeight.High)) {
+    if((m_scoringHeight == ScoringHeight.High)) {
     m_arms.armLengthBrakeOn();
     m_arms.moveArmInOut(0);
     }
@@ -60,8 +63,8 @@ public class ScorePieceHighCone2 extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isCone == false || m_scoringHeight != ScoringHeight.High ||
-    (isCone && m_scoringHeight == ScoringHeight.High && 
+    return m_scoringHeight != ScoringHeight.High ||
+    (m_scoringHeight == ScoringHeight.High && 
     
     (((m_arms.armLengthMotorCurrentPosition() + ArmLength.deadband) > lengthPosition 
           && (m_arms.armLengthMotorCurrentPosition() - ArmLength.deadband) < lengthPosition)

@@ -27,8 +27,8 @@ public class BalanceOnPlatform extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pidController = new PIDController(RobotPrefs.getBalanceP(), 0, 0);
-    pidController.setTolerance(5, 10);
+    pidController = new PIDController(.025, 0, 0);
+    pidController.setTolerance(1);
     pidController.setIntegratorRange(-0.5, 0.5);
     driveTrain.setBreakMode();
   }

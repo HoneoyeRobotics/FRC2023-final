@@ -79,6 +79,7 @@ public class DriveTrain extends SubsystemBase {
     leftRearMotor.setIdleMode(IdleMode.kBrake);
     rightFrontMotor.setIdleMode(IdleMode.kBrake);
     rightRearMotor.setIdleMode(IdleMode.kBrake);
+    SmartDashboard.putBoolean("BrakeMode", true);
   }
 
   public void setCoastMode() {
@@ -86,6 +87,7 @@ public class DriveTrain extends SubsystemBase {
     leftRearMotor.setIdleMode(IdleMode.kCoast);
     rightFrontMotor.setIdleMode(IdleMode.kCoast);
     rightRearMotor.setIdleMode(IdleMode.kCoast);
+    SmartDashboard.putBoolean("BrakeMode", false);
   }
 
   public boolean getBrakeMode() {
